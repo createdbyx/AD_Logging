@@ -21,7 +21,13 @@ namespace Codefarts.AutoDownloader.Plugins
                 return "Auto Downloader Logging";
             }
         }
-
+        public ApplicationModel Application
+        {
+            get
+            {
+                return this.applicationModel;
+            }
+        }
       
         public void Connect(ApplicationModel appModel)
         {
