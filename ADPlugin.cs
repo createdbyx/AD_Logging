@@ -1,11 +1,9 @@
-﻿using Codefarts.AutoDownloader;
-using Codefarts.AutoDownloader.Interfaces;
-using Codefarts.AutoDownloader.Plugins;
-
-namespace Codefarts.AutoDownloader.Plugins
-{                                              
-    using Codefarts.Logging;
+﻿namespace Codefarts.AutoDownloader.Plugins
+{
     using System.ComponentModel.Composition;
+    using Codefarts.AutoDownloader;
+    using Codefarts.AutoDownloader.Interfaces;
+    using Codefarts.Logging;
 
     [Export(typeof(IGeneralPlugin))]
     [GeneralPlugin("Auto Downloader Logging")]
@@ -21,6 +19,7 @@ namespace Codefarts.AutoDownloader.Plugins
                 return "Auto Downloader Logging";
             }
         }
+
         public ApplicationModel Application
         {
             get
@@ -28,13 +27,13 @@ namespace Codefarts.AutoDownloader.Plugins
                 return this.applicationModel;
             }
         }
-      
+
         public void Connect(ApplicationModel appModel)
         {
             this.applicationModel = appModel;
             this.logger = new ADLogger(appModel);
             // Logging.LoggedEntry += this.Logging_LoggedEntry;
-            Logs.Instance.Repositories.Add(this.logger);
+            Logging.Repositories.Add(this.logger);
         }
 
         //private void Logging_LoggedEntry(object sender, LogModelEventArgs e)
@@ -45,7 +44,7 @@ namespace Codefarts.AutoDownloader.Plugins
         public void Disconnect()
         {
             // Logging.LoggedEntry -= this.Logging_LoggedEntry;
-            Logs.Instance.Repositories.Remove(this.logger);
+            Logging.Repositories.Remove(this.logger);
             this.logger = null;
             this.applicationModel = null;
         }

@@ -1,6 +1,4 @@
-﻿using Codefarts.AutoDownloader;
-
-namespace Codefarts.AutoDownloader.Plugins
+﻿namespace Codefarts.AutoDownloader.Plugins
 {
     using System;
     using Codefarts.Logging;
@@ -31,15 +29,15 @@ namespace Codefarts.AutoDownloader.Plugins
 
         public void Log(LogEntryType type, string message, string category)
         {
-            var data = DateTime.Now.ToString("u");
-            data += " " + type;
-            data += " " + (string.IsNullOrWhiteSpace(category) ? string.Empty : "(" + category + ")");
-            data += " " + message;
+            var model = new LogModel()
+            {
+                Type = type,
+                Message = message,
+                Category = category,
+                TimeStamp = DateTime.Now,
+            };
 
-            //var ioc = Container.Default;
-            //var platform = ioc.Resolve<IPlatformProvider>();
-            // platform.OnUIThread(() => this.appModel.Logging.Logs.Add(data));
-            this.appModel.Logging.Logs.Add(data);
+            this.appModel.Logging.Logs.Add(model);
         }
     }
 }
